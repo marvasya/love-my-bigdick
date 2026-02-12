@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Валентинка 💘</title>
+  <style>
+    body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(#ffe6f0,#fff);display:flex;align-items:center;justify-content:center;min-height:100vh}
+    .card{background:#fff;padding:34px 22px;border-radius:22px;box-shadow:0 15px 40px rgba(0,0,0,.15);max-width:420px;width:90%;text-align:center}
+    h1{color:#d1005d;margin:0 0 12px;font-size:2em}
+    p{margin:0;color:#333;font-size:18px}
+    .buttons{margin-top:26px;position:relative;height:170px}
+    button{font-size:20px;padding:14px 30px;border:0;border-radius:15px;cursor:pointer;position:absolute;transition:.15s}
+    #yesBtn{background:#ff4d88;color:#fff;left:28%;top:70px}
+    #noBtn{background:#ccc;color:#000;left:55%;top:70px}
+    .hidden{display:none}
+    img{width:250px;margin-top:18px;border-radius:14px}
+  </style>
+</head>
+<body>
+
+  <div class="card" id="page1">
+    <h1>Ты будешь моей валентинкой? 💖</h1>
+    <p id="text">Выбирай осторожно 😌</p>
+
+    <div class="buttons">
+      <button id="yesBtn" type="button">Да 💘</button>
+      <button id="noBtn" type="button">Нет 😢</button>
+    </div>
+  </div>
+
+  <div class="card hidden" id="pageYes">
+    <h1>УРААА 💞</h1>
+    <p>Ты сделала меня самым счастливым человеком ❤️</p>
+    <img alt="gif" src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
+    <p style="margin-top:14px">Люблю тебя 😘</p>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn  = document.getElementById("noBtn");
+    const page1  = document.getElementById("page1");
+    const pageYes= document.getElementById("pageYes");
+    const text   = document.getElementById("text");
+
+    let count = 0;
+    const phrases = [
+      "Ты серьёзно нажала нет? 😭",
+      "Подумай ещё раз… 🥺",
+      "Ну пожалуйста 💔",
+      "Я сейчас обижусь 😤",
+      "Ладно… кнопка не даст отказаться 😌"
+    ];
+
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * 250;
+      const y = Math.random() * 120;
+      noBtn.style.left = x + "px";
+      noBtn.style.top  = y + "px";
+    });
+
+    noBtn.addEventListener("click", () => {
+      text.textContent = phrases[count % phrases.length];
+      count++;
+    });
+
+    yesBtn.addEventListener("click", () => {
+      page1.classList.add("hidden");
+      pageYes.classList.remove("hidden");
+    });
+  </script>
+
+</body>
+</html>
