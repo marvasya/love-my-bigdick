@@ -348,9 +348,37 @@
       noBtn.style.transform = "translate(-50%, -50%)";
     }
 
-    noBtn.addEventListener("mouseenter", moveNo);
-    noBtn.addEventListener("touchstart", (e)=>{ e.preventDefault(); moveNo(); }, {passive:false});
-    noBtn.addEventListener("click", ()=> showScene(2)); // если всё-таки поймала
+// --- Кнопка "Нет" убегает ровно 3 раза (ПК + телефон)
+
+let dodgeCount = 0;
+const maxDodges = 3;
+
+// функция убегания
+function dodge() {
+  if (dodgeCount < maxDodges) {
+    dodgeCount++;
+    moveNo();
+  }
+}
+
+// ПК: убегает при наведении
+noBtn.addEventListener("mouseenter", () => {
+  dodge();
+});
+
+// Телефон: убегает при попытке нажать
+noBtn.addEventListener("touchstart", () => {
+  dodge();
+}, { passive: true });
+
+// Клик: если уже убежала 3 раза → разрешаем нажать
+noBtn.addEventListener("click", () => {
+  if (dodgeCount >= maxDodges) {
+    showScene(2); // переходим на "Ты серьезно?"
+  } else {
+    dodge(); // если ещё не убежала 3 раза — убегает
+  }
+});
 
     // YES -> сразу на сцену 4
     yesBtn.addEventListener("click", ()=> showScene(4));
